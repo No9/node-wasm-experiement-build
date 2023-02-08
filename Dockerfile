@@ -12,10 +12,9 @@ RUN dnf -y install epel-release
 
 RUN dnf install -y git python3 which redhat-lsb-core systemd-devel yajl-devel \ 
     libseccomp-devel pkg-config libgcrypt-devel \
-    glibc-static python3-libmount libtool libcap-devel
+    glibc-static python3-libmount libtool libcap-devel gcc-c++
 
 RUN git clone --depth 1 -b napi-libnode https://github.com/mmomtchev/node.git
-RUN dnf install -y gcc-c++
 WORKDIR /node
 RUN ./configure --shared
 RUN make
@@ -31,4 +30,5 @@ RUN ./autogen.sh
 RUN ./configure --with-wasm_nodejs --enable-embedded-yajl
 RUN make
 
-# Copy crun wasmedge and libnode.so out and put 
+# Copy crun libWASMedge.so and libnode.so out as part of the deploy see  
+# https://github.com/knawd/deployer/blob/main/Dockerfile#L99
